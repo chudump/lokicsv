@@ -14,6 +14,7 @@ import (
 
 func main() {
 	var verbose = *flag.Bool("v", false, "Verbosity")
+	flag.Parse()
 
 	lokiHost := os.Getenv("LOKI_HOST") // "172.16.16.13"
 	lokiPort := os.Getenv("LOKI_PORT") // "31503"
