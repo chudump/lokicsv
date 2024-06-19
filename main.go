@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/csv"
 	"encoding/json"
+	"flag"
 	"fmt"
 	"io"
 	"net/http"
@@ -12,17 +13,25 @@ import (
 )
 
 func main() {
+	var verbose = *flag.Bool("v", false, "Verbosity")
+
 	lokiHost := os.Getenv("LOKI_HOST") // "172.16.16.13"
 	lokiPort := os.Getenv("LOKI_PORT") // "31503"
-	query := os.Getenv("LOKI_QUERY")   // `{job="fluent-bit"}`
-	limit := os.Getenv("LOKI_LIMIT")   // 10
+	query := `{job="fluent-bit"}`
+	limit := os.Getenv("LOKI_LIMIT") // 10
+
+	if verbose {
+		fmt.Printf("Host: %s:%s\nQuery: %s\nLimit: %s", lokiHost, lokiPort, query, limit)
+	}
 
 	now := time.Now()
 	start := fmt.Sprintf("%d", now.Add(-time.Minute).UnixNano())
 	end := fmt.Sprintf("%d", now.UnixNano())
 
 	baseURL := fmt.Sprintf("http://%s:%s/loki/api/v1/query_range", lokiHost, lokiPort)
-
+	if verbose {
+		fmt.Println(baseURL)
+	}
 	params := url.Values{}
 	params.Add("query", query)
 	params.Add("start", start)

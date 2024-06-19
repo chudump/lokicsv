@@ -19,9 +19,7 @@ RUN wget https://dl.influxdata.com/telegraf/releases/telegraf-1.31.0_linux_amd64
 RUN cp -r /telegraf-1.31.0/* /
 
 # install lokicsv
-RUN mkdir -p /telegraf/lokicsv
-RUN git clone https://github.com/chudump/lokicsv /telegraf/lokicsv
-RUN cd /telegraf/lokicsv && go build -o loki_to_csv .
-RUN mv /telegraf/lokicsv/loki_to_csv /usr/bin/loki_to_csv
+RUN wget https://github.com/chudump/lokicsv/releases/download/v1/lokicsv
+RUN cp -r lokicsv /usr/bin/lokicsv
 
 CMD [ "bash","-c","sleep infinity" ]
