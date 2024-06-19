@@ -26,7 +26,7 @@ jobs:
         run: go build -o lokicsv main.go
 
       - name: Archive binary
-        run: tar -czvf myapp.tar.gz myapp
+        run: tar -czvf lokicsv.tar.gz lokicsv
 
       - name: Create GitHub Release
         id: create_release
@@ -45,6 +45,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./myapp.tar.gz
-          asset_name: myapp.tar.gz
+          asset_path: ./lokicsv.tar.gz
+          asset_name: lokicsv.tar.gz
           asset_content_type: application/gzip
