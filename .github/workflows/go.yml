@@ -32,6 +32,9 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: "lokicsv.tar.gz"
+          commit: true
+          generateReleaseNotes: true
+          makeLatest: true
 
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
